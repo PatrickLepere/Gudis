@@ -1,0 +1,117 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_network_printer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20180403\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-05 12:04+0000\n"
+"PO-Revision-Date: 2018-12-05 12:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_network_printer
+#. openerp-web
+#: code:addons/pos_network_printer/static/src/js/chrome.js:284
+#: code:addons/pos_network_printer/static/src/js/chrome.js:292
+#, python-format
+msgid "Close"
+msgstr "Fermer"
+
+#. module: pos_network_printer
+#. openerp-web
+#: code:addons/pos_network_printer/static/src/js/chrome.js:289
+#, python-format
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_printer_ip
+msgid "IP Adress"
+msgstr "Adresse IP"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer___last_update
+msgid "Last Modified on"
+msgstr "Dernière Modification le"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: pos_network_printer
+#: selection:pos.config,ticket_print_mode:0
+msgid "Network"
+msgstr "Réseau"
+
+#. module: pos_network_printer
+#: model:ir.actions.act_window,name:pos_network_printer.network_printer_action
+#: model:ir.model.fields,field_description:pos_network_printer.field_pos_config_network_printer_ids
+#: model:ir.ui.menu,name:pos_network_printer.menu_network_printer
+#: model:ir.ui.view,arch_db:pos_network_printer.network_printer_form
+#: model:ir.ui.view,arch_db:pos_network_printer.network_printer_tree
+#: model:ir.ui.view,arch_db:pos_network_printer.pos_config_inherit_form
+msgid "Network printers"
+msgstr "Imprimantes réseau"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_printer_port
+msgid "Port"
+msgstr "Port"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_network_printer_printer_name
+msgid "Printer name"
+msgstr "Nom de l'imprimante"
+
+#. module: pos_network_printer
+#: model:ir.model.fields,field_description:pos_network_printer.field_pos_config_ticket_print_mode
+msgid "Ticket print mode"
+msgstr "Mode d'impression ticket"
+
+#. module: pos_network_printer
+#: selection:pos.config,ticket_print_mode:0
+msgid "Web"
+msgstr "Web"
+
+#. module: pos_network_printer
+#: model:ir.model,name:pos_network_printer.model_network_printer
+msgid "network.printer"
+msgstr "network.printer"
+
+#. module: pos_network_printer
+#: model:ir.model,name:pos_network_printer.model_pos_config
+msgid "pos.config"
+msgstr "pos.config"
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="printer_connector_reatil_form_inherit" model="ir.ui.view">
+      <field name="name">printer.connector.retail.form.inherit</field>
+      <field name="model">network.printer</field>
+      <field name="inherit_id" ref="pos_network_printer.network_printer_form"/>
+      <field name="arch" type="xml">
+        <field name="printer_port" position="after">
+          <field name="connector_id"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>

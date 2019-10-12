@@ -1,0 +1,168 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_network_printer_online
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20181109\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-05 19:41+0000\n"
+"PO-Revision-Date: 2019-03-05 19:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_network_printer_online
+#: model:ir.module.category,description:pos_network_printer_online.module_printer_connector
+msgid "Allow access for Odoo Printer Connector\n"
+"    "
+msgstr "Autoriser l'accès pour Odoo Printer Connector\n"
+"    "
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_network_printer_connector_id
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_connector_id
+msgid "Connector"
+msgstr "Connecteur"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_create_uid
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_create_date
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_display_name
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_id
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_printer_ip
+msgid "IP Adress"
+msgstr "Adresse IP"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector___last_update
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_write_uid
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_write_date
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: pos_network_printer_online
+#: selection:queue.print,state:0
+msgid "New"
+msgstr "Nouveau"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_printer_port
+msgid "Port"
+msgstr "Port"
+
+#. module: pos_network_printer_online
+#: selection:queue.print,state:0
+msgid "Printed"
+msgstr "Imprimé"
+
+#. module: pos_network_printer_online
+#: model:ir.actions.act_window,name:pos_network_printer_online.printer_connector_action
+#: model:ir.module.category,name:pos_network_printer_online.module_printer_connector
+#: model:ir.ui.menu,name:pos_network_printer_online.menu_printer_connector
+msgid "Printer Connector"
+msgstr "Connecteur d'imprimante"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_printer_name
+msgid "Printer name"
+msgstr "Nom de l'imprimante"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_order_printer_ids
+#: model:ir.ui.view,arch_db:pos_network_printer_online.printer_connector_form
+msgid "Printers"
+msgstr "Imprimantes"
+
+#. module: pos_network_printer_online
+#: model:ir.actions.act_window,name:pos_network_printer_online.queue_print_action
+#: model:ir.ui.menu,name:pos_network_printer_online.menu_queue
+msgid "Queue print"
+msgstr "Impression en file d'attente"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_receipt
+#: model:ir.ui.view,arch_db:pos_network_printer_online.queue_print_form
+msgid "Receipt"
+msgstr "Ticket"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_state
+msgid "State"
+msgstr "Région"
+
+#. module: pos_network_printer_online
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_printer_connector_token
+#: model:ir.model.fields,field_description:pos_network_printer_online.field_queue_print_token
+msgid "Token"
+msgstr "Token"
+
+#. module: pos_network_printer_online
+#: model:res.groups,name:pos_network_printer_online.group_user_printer_connector
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: pos_network_printer_online
+#: model:ir.model,name:pos_network_printer_online.model_network_printer
+msgid "network.printer"
+msgstr "network.printer"
+
+#. module: pos_network_printer_online
+#: model:ir.model,name:pos_network_printer_online.model_printer_connector
+msgid "printer.connector"
+msgstr "printer.connector"
+
+#. module: pos_network_printer_online
+#: model:ir.model,name:pos_network_printer_online.model_printer_connector_retail
+msgid "printer.connector.retail"
+msgstr "printer.connector.retail"
+
+#. module: pos_network_printer_online
+#: model:ir.model,name:pos_network_printer_online.model_queue_print
+msgid "queue.print"
+msgstr "queue.print"
+
+#. module: pos_network_printer_online
+#: model:ir.model,name:pos_network_printer_online.model_queue_print_retail
+msgid "queue.print.retail"
+msgstr "queue.print.retail"
+
