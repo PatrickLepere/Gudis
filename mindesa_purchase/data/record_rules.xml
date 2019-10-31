@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.rule" id="purchase_user_vendor_bills">
+            <field name="name">Restrict Vendor Bills access to Purchase Users</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">[('type', '!=', 'in_invoice')]</field>
+            <field eval="[(4,ref('purchase.group_purchase_user'))]" name="groups"/>
+        </record>
+        <record model="ir.rule" id="purchase_manager_vendor_bills">
+            <field name="name">Allow Vendor Bills access to Purchase Managers</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">[]</field>
+            <field eval="[(4,ref('purchase.group_purchase_manager'))]" name="groups"/>
+        </record>
+    </data>
+</odoo>
