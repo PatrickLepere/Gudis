@@ -9,6 +9,8 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create(self, vals):
-        if self._context.get("create_bill"):
+        if self._context.get("create_bill") and self.user_has_groups(
+            "purchase.group_purchase_user,!purchase.group_purchase_manager"
+        ):
             self = self.sudo()
         return super(AccountInvoice, self).create(vals)
