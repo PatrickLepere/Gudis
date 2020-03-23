@@ -30,10 +30,14 @@ class StockRule(models.Model):
             raise UserError(msg)
         supplier = self._make_po_select_supplier(values, suppliers)
         partner = supplier.name
+        
         # we put `supplier_info` in values for extensibility purposes
         values['supplier'] = supplier
     
         domain = self._make_po_get_domain(values, partner)
+            
+        res = super(StockRule, self)._run_buy(product_id, product_qty, product_uom, location_id, name, origin, values)
+
         po = False
         if domain in cache:
             po = cache[domain]
@@ -42,8 +46,6 @@ class StockRule(models.Model):
             po = po[0] if po else False
             cache[domain] = po
             
-        res = super(StockRule, self)._run_buy(product_id, product_qty, product_uom, location_id, name, origin, values)
-
         # have to add this extra step since changing the POL uom will fail to let the line merge in existing line
         # and I really don't want to overload a major function like run_buy
         # so here we just check again is some lines can be merged, if so, merge them here
@@ -65,11 +67,11 @@ class StockRule(models.Model):
             date=po.date_order and po.date_order.date(),
             uom_id=product_id.uom_po_id)
         res = super(StockRule, self)._prepare_purchase_order_line(product_id, product_qty, product_uom, values, po, partner)
-        product_uom = seller.product_uom
-        product_qty = product_id.uom_po_id._compute_quantity(procurement_uom_po_qty, product_uom)
+        seller_product_uom = seller.product_uom
+        seller_product_qty = product_uom._compute_quantity(product_qty, seller_product_uom)
         res.update({
-            'product_uom': product_uom.id,
-            'product_qty': product_qty
+            'product_uom': seller_product_uom.id,
+            'product_qty': seller_product_qty
         })
         return res
                 
