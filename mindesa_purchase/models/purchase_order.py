@@ -7,6 +7,11 @@ from odoo import api, fields, models, _
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
+    def confirm_rfq_action(self):
+        for purchase in self:
+            if purchase.state in ['draft','sent'] and purchase.partner_id.id == 1 and purchase.user_id.id == 1:
+                purchase.button_confirm()
+    
     @api.multi
     def _add_supplier_to_product(self):
         # Add the partner in the supplier list of the product if the supplier is not registered for

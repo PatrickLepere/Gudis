@@ -13,6 +13,7 @@
     "depends": ["purchase_mrp"],
     "data": [
         "data/record_rules.xml",
-        "views/product_views.xml"
+        "views/product_views.xml",
+        "data/actions.xml"
     ]
 }
