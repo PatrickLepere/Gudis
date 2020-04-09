@@ -9,7 +9,7 @@ class ProcurementGroup(models.Model):
 
     @api.model
     def run_scheduler(self, use_new_cursor=False, company_id=False):
-        res = super(ProcurementGroup,self).run_scheduler(use_new_cursor, company_id)
+        res = super(ProcurementGroup,self).run_scheduler(use_new_cursor=use_new_cursor, company_id=company_id)
         purchases = self.env['purchase.order'].search([])
         purchases.confirm_rfq_action()  
         return res
