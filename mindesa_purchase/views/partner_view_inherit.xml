@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="view_partner_inherit_mindesa" model="ir.ui.view">
+            <field name="name">view_partner_inherit_mindesa</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//group[@name='purchase']/field[@name='supplier']" position="after">
+                        <field name="is_rfq_confirm" string= "Is RFQ confirm"/>
+                  </xpath>
+            </field>
+      </record>
+
+      <record id="view_user_inherit_mindesa" model="ir.ui.view">
+            <field name="name">view_user_inherit_mindesa</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//group[@name='messaging']" position="before">
+                        <group string="RFQ confirmation">
+                              <field name="is_rfq_confirm" string= "Is RFQ confirm"/>
+                        </group>
+                  </xpath>
+            </field>
+      </record>
+</odoo>
+            

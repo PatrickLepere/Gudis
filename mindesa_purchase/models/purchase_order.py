@@ -9,7 +9,7 @@ class PurchaseOrder(models.Model):
 
     def confirm_rfq_action(self):
         for purchase in self:
-            if purchase.state in ['draft','sent'] and purchase.partner_id.id == 1 and purchase.user_id.id == 1:
+            if purchase.state in ['draft','sent'] and purchase.partner_id.is_rfq_confirm and purchase.user_id.is_rfq_confirm:
                 purchase.button_confirm()
     
     @api.multi
