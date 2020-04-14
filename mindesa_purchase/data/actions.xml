@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate='1'>
+        <record id="ir_cron_confirm_rfqs" model="ir.cron">
+            <field name="name">Confirm RFQs</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="code">
+purchases = env['purchase.order'].search([])
+purchases.confirm_rfq_action()
+            </field>
+            <field name="state">code</field>
+        </record>
+    </data>
+</odoo>
