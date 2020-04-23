@@ -66,3 +66,15 @@ class PurchaseOrder(models.Model):
             self.partner_id != self.company_id.partner_id:
             res['location_id'] = self.company_id.partner_id.property_stock_customer.id
         return  res
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
+    @api.multi
+    def _prepare_stock_moves(self, picking):
+        res = super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
+        if self.order_id.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
+                self.order_id.partner_id != self.company_id.partner_id:
+            for line_vals in res:
+                line_vals['location_id'] = self.company_id.partner_id.property_stock_customer.id
+        return res
