@@ -58,3 +58,11 @@ class PurchaseOrder(models.Model):
                     line.product_id.write(vals)
                 except AccessError:  # no write access rights -> just ignore
                     break
+
+    @api.model
+    def _prepare_picking(self):
+        res = super(PurchaseOrder, self)._prepare_picking()
+        if self.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
+            self.partner_id != self.company_id.partner_id:
+            res['location_id'] = self.company_id.partner_id.property_stock_customer.id
+        return  res
