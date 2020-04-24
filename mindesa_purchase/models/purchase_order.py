@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo import SUPERUSER_ID
 
 
 class PurchaseOrder(models.Model):
@@ -63,9 +64,9 @@ class PurchaseOrder(models.Model):
     def _prepare_picking(self):
         res = super(PurchaseOrder, self)._prepare_picking()
         if self.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-            self.partner_id != self.company_id.partner_id:
+            self.partner_id != self.company_id.partner_id and self.env.uid == SUPERUSER_ID:
             res['location_id'] = self.company_id.partner_id.property_stock_customer.id
-        return  res
+        return res
 
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
@@ -74,7 +75,7 @@ class PurchaseOrderLine(models.Model):
     def _prepare_stock_moves(self, picking):
         res = super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
         if self.order_id.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-                self.order_id.partner_id != self.company_id.partner_id:
+            self.order_id.partner_id != self.company_id.partner_id and self.env.uid == SUPERUSER_ID:
             for line_vals in res:
                 line_vals['location_id'] = self.company_id.partner_id.property_stock_customer.id
         return res
