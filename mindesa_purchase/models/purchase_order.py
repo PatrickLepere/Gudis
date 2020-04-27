@@ -64,7 +64,8 @@ class PurchaseOrder(models.Model):
     def _prepare_picking(self):
         res = super(PurchaseOrder, self)._prepare_picking()
         if self.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-            self.partner_id != self.company_id.partner_id and self.env.uid == SUPERUSER_ID:
+            self.partner_id != self.company_id.partner_id and \
+            ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.partner_id)):
             res['location_id'] = self.company_id.partner_id.property_stock_customer.id
         return res
 
@@ -75,7 +76,8 @@ class PurchaseOrderLine(models.Model):
     def _prepare_stock_moves(self, picking):
         res = super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
         if self.order_id.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-            self.order_id.partner_id != self.company_id.partner_id and self.env.uid == SUPERUSER_ID:
+            self.order_id.partner_id != self.company_id.partner_id and \
+            ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.order_id.partner_id)):
             for line_vals in res:
                 line_vals['location_id'] = self.company_id.partner_id.property_stock_customer.id
         return res
