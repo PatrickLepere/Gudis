@@ -1,18 +1,36 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+import logging
+
+from odoo import api, fields, models, registry, _
 from odoo import SUPERUSER_ID
+
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    def confirm_rfq_action(self):
+    def confirm_rfq_action(self, automatic=True):
+        # Rescue mechanism to commit the changes on each iteration.
+        if automatic:
+            cr = registry(self._cr.dbname).cursor()
+            self = self.with_env(self.env(cr=cr))
         for purchase in self:
             if purchase.state in ['draft','sent'] and purchase.partner_id.is_rfq_confirm and purchase.user_id.is_rfq_confirm:
-                purchase.button_confirm()
-    
+                try:
+                    purchase.button_confirm()
+                except Exception:
+                    if automatic:
+                        cr.rollback()
+                    _logger.info("Could not confirm [%s] using scheduled cron to confirm RFQ(S)." % (purchase.name))
+            if automatic:
+                cr.commit()
+        if automatic:
+            cr.commit()
+            cr.close()
+
     @api.multi
     def _add_supplier_to_product(self):
         # Add the partner in the supplier list of the product if the supplier is not registered for
