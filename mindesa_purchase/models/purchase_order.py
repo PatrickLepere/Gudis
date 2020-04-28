@@ -1,17 +1,36 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+import logging
+
+from odoo import api, fields, models, registry, _
+from odoo import SUPERUSER_ID
+
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    def confirm_rfq_action(self):
+    def confirm_rfq_action(self, automatic=True):
+        # Rescue mechanism to commit the changes on each iteration.
+        if automatic:
+            cr = registry(self._cr.dbname).cursor()
+            self = self.with_env(self.env(cr=cr))
         for purchase in self:
             if purchase.state in ['draft','sent'] and purchase.partner_id.is_rfq_confirm and purchase.user_id.is_rfq_confirm:
-                purchase.button_confirm()
-    
+                try:
+                    purchase.button_confirm()
+                except Exception:
+                    if automatic:
+                        cr.rollback()
+                    _logger.info("Could not confirm [%s] using scheduled cron to confirm RFQ(S)." % (purchase.name))
+            if automatic:
+                cr.commit()
+        if automatic:
+            cr.commit()
+            cr.close()
+
     @api.multi
     def _add_supplier_to_product(self):
         # Add the partner in the supplier list of the product if the supplier is not registered for
@@ -63,9 +82,10 @@ class PurchaseOrder(models.Model):
     def _prepare_picking(self):
         res = super(PurchaseOrder, self)._prepare_picking()
         if self.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-            self.partner_id != self.company_id.partner_id:
+            self.partner_id != self.company_id.partner_id and \
+            ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.partner_id)):
             res['location_id'] = self.company_id.partner_id.property_stock_customer.id
-        return  res
+        return res
 
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
@@ -74,7 +94,8 @@ class PurchaseOrderLine(models.Model):
     def _prepare_stock_moves(self, picking):
         res = super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
         if self.order_id.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-                self.order_id.partner_id != self.company_id.partner_id:
+            self.order_id.partner_id != self.company_id.partner_id and \
+            ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.order_id.partner_id)):
             for line_vals in res:
                 line_vals['location_id'] = self.company_id.partner_id.property_stock_customer.id
         return res
