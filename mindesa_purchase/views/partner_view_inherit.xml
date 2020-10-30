@@ -5,7 +5,7 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                  <xpath expr="//group[@name='purchase']/field[@name='supplier']" position="after">
+                  <xpath expr="//group[@name='purchase']" position="inside">
                         <field name="is_rfq_confirm" string= "Is RFQ confirm"/>
                   </xpath>
             </field>

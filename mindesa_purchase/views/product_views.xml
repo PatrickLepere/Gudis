@@ -8,7 +8,7 @@
       <field name="arch" type="xml">
 	<xpath expr="//field[@name='min_qty']/.." position="after">
 	  <field name="product_uom_category_id" invisible="1"/>
-	  <field name="product_uom" class="oe_inline" domain="[('category_id', '=', product_uom_category_id)]" context="{'default_category_id': product_uom_category_id}"/>
+	  <field name="product_uom" required="1" class="oe_inline" domain="[('category_id', '=', product_uom_category_id)]" context="{'default_category_id': product_uom_category_id}"/>
 	</xpath>
 	<xpath expr="//field[@name='product_uom']" position="replace"/>
       </field>
