@@ -8,7 +8,6 @@ from odoo.exceptions import UserError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.multi
     @api.depends('move_ids.state', 'move_ids.scrapped', 'move_ids.product_uom_qty', 'move_ids.product_uom')
     def _compute_qty_delivered(self):
         super(SaleOrderLine, self)._compute_qty_delivered()

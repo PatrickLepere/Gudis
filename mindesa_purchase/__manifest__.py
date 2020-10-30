@@ -11,7 +11,7 @@
     "website": "http://odoo.com",
     "category": "Custom Development",
     "version": "0.1",
-    "depends": ["purchase_mrp"],
+    "depends": ["purchase", "purchase_stock", "account"],
     'license': 'OEEL-1',
     "data": [
         "data/record_rules.xml",
