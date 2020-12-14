@@ -4,6 +4,8 @@
 import logging
 
 from odoo import api, fields, models, registry, _, SUPERUSER_ID
+from odoo.exceptions import AccessError
+
 
 _logger = logging.getLogger(__name__)
 

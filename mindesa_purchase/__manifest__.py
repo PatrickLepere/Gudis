@@ -17,7 +17,9 @@
         "data/record_rules.xml",
         "data/actions.xml",
         "views/product_views.xml",
-        "views/partner_view_inherit.xml"
-        
+        "views/partner_view_inherit.xml",
+        "views/account_move_views.xml",
+
+
     ]
 }
