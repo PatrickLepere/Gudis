@@ -1,7 +1,7 @@
 from odoo import api, fields, models, _
 
 
-class AccountInvoice(models.TransientModel):
+class AccountInvoice(models.Model):
     _inherit = "account.move"
 
     @api.model
