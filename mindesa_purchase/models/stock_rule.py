@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -21,7 +18,6 @@ class StockRule(models.Model):
         to_unlink.unlink()
         return True
     
-    @api.multi
     def _run_buy(self, product_id, product_qty, product_uom, location_id, name, origin, values):
         cache = {}
         suppliers = product_id.seller_ids.filtered(lambda r: (not r.company_id or r.company_id == values['company_id']) and (not r.product_id or r.product_id == product_id) and r.name.active)
@@ -58,7 +54,6 @@ class StockRule(models.Model):
 
         return res
 
-    @api.multi
     def _prepare_purchase_order_line(self, product_id, product_qty, product_uom, values, po, partner):
         procurement_uom_po_qty = product_uom._compute_quantity(product_qty, product_id.uom_po_id)
         seller = product_id.with_context(force_company=values['company_id'].id)._select_seller(
@@ -74,10 +69,3 @@ class StockRule(models.Model):
             'product_qty': seller_product_qty
         })
         return res
-                
-                
-    
-    
-
-
-    

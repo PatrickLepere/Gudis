@@ -6,29 +6,26 @@
       <field name="model">product.supplierinfo</field>
       <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
       <field name="arch" type="xml">
-	<xpath expr="//field[@name='min_qty']/.." position="after">
-	  <field name="product_uom_category_id" invisible="1"/>
-	  <field name="product_uom" class="oe_inline" domain="[('category_id', '=', product_uom_category_id)]" context="{'default_category_id': product_uom_category_id}"/>
-	</xpath>
-	<xpath expr="//field[@name='product_uom']" position="replace"/>
+        <xpath expr="//field[@name='min_qty']/.." position="after">
+          <field name="product_uom_category_id" invisible="1"/>
+          <field name="product_uom" class="oe_inline" domain="[('category_id', '=', product_uom_category_id)]" context="{'default_category_id': product_uom_category_id}"/>
+        </xpath>
+        <xpath expr="//field[@name='product_uom']" position="replace"/>
       </field>
     </record>
 
-    <!-- in order for the po uom to auto fill in when create a vendor pricelist -->
     <record id="view_product_supplier_inherit_mindesa" model="ir.ui.view">
       <field name="name">view_product_supplier_inherit_mindesa</field>
       <field name="model">product.template</field>
       <field name="inherit_id" ref="purchase.view_product_supplier_inherit"/>
       <field name="arch" type="xml">
-	<xpath expr="//field[@name='seller_ids']" position="attributes">
-	  <attribute name="context">{'default_product_uom': uom_po_id, 'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}</attribute>
-	</xpath>
-	<xpath expr="//field[@name='variant_seller_ids']" position="attributes">
-	  <attribute name="context">{'default_product_uom': uom_po_id, 'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}</attribute>
-	</xpath>
-	
+        <xpath expr="//field[@name='seller_ids']" position="attributes">
+          <attribute name="context">{'default_product_uom': uom_po_id, 'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='variant_seller_ids']" position="attributes">
+          <attribute name="context">{'default_product_uom': uom_po_id, 'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}</attribute>
+        </xpath>
       </field>
     </record>
-    
   </data>
 </odoo>

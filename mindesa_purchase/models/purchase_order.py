@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 import logging
 
 from odoo import api, fields, models, registry, _
@@ -31,7 +28,6 @@ class PurchaseOrder(models.Model):
             cr.commit()
             cr.close()
 
-    @api.multi
     def _add_supplier_to_product(self):
         # Add the partner in the supplier list of the product if the supplier is not registered for
         # this product. We limit to 10 the number of suppliers for a product to avoid the mess that
@@ -85,17 +81,4 @@ class PurchaseOrder(models.Model):
             self.partner_id != self.company_id.partner_id and \
             ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.partner_id)):
             res['location_id'] = self.company_id.partner_id.property_stock_customer.id
-        return res
-
-class PurchaseOrderLine(models.Model):
-    _inherit = "purchase.order.line"
-
-    @api.multi
-    def _prepare_stock_moves(self, picking):
-        res = super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
-        if self.order_id.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
-            self.order_id.partner_id != self.company_id.partner_id and \
-            ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.order_id.partner_id)):
-            for line_vals in res:
-                line_vals['location_id'] = self.company_id.partner_id.property_stock_customer.id
         return res
