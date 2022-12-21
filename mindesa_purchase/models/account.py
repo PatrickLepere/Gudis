@@ -12,9 +12,9 @@ class AccountMove(models.Model):
             self = self.sudo()
         return super(AccountMove, self).create(vals)
 
-    def _post(self):
+    def _post(self, soft=True):
         if self.user_has_groups(
             "purchase.group_purchase_user,!purchase.group_purchase_manager"
         ):
             self = self.sudo()
-        return super(AccountMove, self)._post()
+        return super(AccountMove, self)._post(soft)
