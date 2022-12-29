@@ -33,7 +33,7 @@ class TestPurchaseUser(common.TransactionCase):
             line.product_id = self.product
             line.product_qty = 1
             line.price_unit = 1
-            field_price_unit = line._fields['price_unit']
-            field_taxes_id = line._fields['taxes_id']
+            field_price_unit = line.get_fields['price_unit']
+            field_taxes_id = line.get_fields['taxes_id']
             self.assertTrue(field_price_unit.readonly)
             self.assertTrue(field_taxes_id.readonly)
