@@ -5,12 +5,14 @@ class TestPurchaseUser(common.TransactionCase):
 
     def test_purchase_user_access_rights(self):
 
+        group_purchase_user = self.env.ref('purchase.group_purchase_user')
+
         self.user = self.env['res.users'].create({
             'name': 'Test Purchase User',
             'company_id': 'Test Company',
             'login': 'test',
             'email': 'test@purchaseuser',
-            'groups_id': [(6, 0, ['purchase.group_purchase_user'])],
+            'groups_id': [(6, 0, [group_purchase_user.id])],
         })
 
         self.vendor = self.env['res.partner'].create({
