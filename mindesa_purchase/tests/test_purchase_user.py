@@ -9,7 +9,6 @@ class TestPurchaseUser(common.TransactionCase):
 
         self.user = self.env['res.users'].create({
             'name': 'Test Purchase User',
-            'company_id': 'Test Company',
             'login': 'test',
             'email': 'test@purchaseuser',
             'groups_id': [(6, 0, [group_purchase_user.id])],
