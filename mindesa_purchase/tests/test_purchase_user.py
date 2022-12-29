@@ -33,7 +33,6 @@ class TestPurchaseUser(common.TransactionCase):
             line.product_id = self.product
             line.product_qty = 1
             line.price_unit = 1
-            field_price_unit = line.get_fields['price_unit']
-            field_taxes_id = line.get_fields['taxes_id']
-            self.assertTrue(field_price_unit.readonly)
-            self.assertTrue(field_taxes_id.readonly)
+            line.taxes_id = self.product.taxes_id.ids
+            self.assertFalse(line.price_unit == 1, 'The price_unit field is not a readonly field.')
+            self.assertFalse(line.taxes_id == self.product.taxes_id.ids, 'The taxes_id field is not a readonly field.')
