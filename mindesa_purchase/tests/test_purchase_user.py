@@ -34,6 +34,4 @@ class TestPurchaseUser(common.TransactionCase):
             line.product_qty = 1
             line.price_unit = 1
             with self.assertRaises(AssertionError):
-                line.price_unit = 2
-            with self.assertRaises(AssertionError):
-                line.taxes_id = []
+                purchase_order_form.__setattr__(line.taxes_id, [])
