@@ -28,7 +28,7 @@
             <field name="perm_read" eval="0"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_unlink" eval="1"/>
-            <field name="domain_force">[('name', '=', False)]</field>
+            <field name="domain_force">[]</field>
             <field eval="[(4,ref('purchase.group_purchase_user'))]" name="groups"/>
         </record>
         <record model="ir.rule" id="purchase_user_uom">
@@ -38,7 +38,7 @@
             <field name="perm_read" eval="0"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_unlink" eval="1"/>
-            <field name="domain_force">[('name', '=', False)]</field>
+            <field name="domain_force">[]</field>
             <field eval="[(4,ref('purchase.group_purchase_user'))]" name="groups"/>
         </record>
         <record model="ir.rule" id="purchase_user_uom_category">
@@ -48,7 +48,7 @@
             <field name="perm_read" eval="0"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_unlink" eval="1"/>
-            <field name="domain_force">[('name', '=', False)]</field>
+            <field name="domain_force">[]</field>
             <field eval="[(4,ref('purchase.group_purchase_user'))]" name="groups"/>
         </record>
     </data>

@@ -15,7 +15,7 @@ class PurchaseOrder(models.Model):
             cr = registry(self._cr.dbname).cursor()
             self = self.with_env(self.env(cr=cr))
         for purchase in self:
-            if purchase.state in ['draft','sent'] and purchase.partner_id.is_rfq_confirm and purchase.user_id.is_rfq_confirm:
+            if purchase.state in ['draft','sent']:
                 try:
                     purchase.button_confirm()
                 except Exception:
