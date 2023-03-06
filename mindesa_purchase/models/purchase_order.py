@@ -15,13 +15,12 @@ class PurchaseOrder(models.Model):
             cr = registry(self._cr.dbname).cursor()
             self = self.with_env(self.env(cr=cr))
         for purchase in self:
-            if purchase.state in ['draft','sent']:
-                try:
-                    purchase.button_confirm()
-                except Exception:
-                    if automatic:
-                        cr.rollback()
-                    _logger.info("Could not confirm [%s] using scheduled cron to confirm RFQ(S)." % (purchase.name))
+            try:
+                purchase.button_confirm()
+            except Exception:
+                if automatic:
+                    cr.rollback()
+                _logger.info("Could not confirm [%s] using scheduled cron to confirm RFQ(S)." % (purchase.name))
             if automatic:
                 cr.commit()
         if automatic:

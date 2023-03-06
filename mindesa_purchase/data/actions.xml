@@ -11,7 +11,7 @@
             <field name="code">
 partners = env['res.partner'].search([('partner_id.is_rfq_confirm', '=', True)])
 users = env['res.users'].search([('user_id.is_rfq_confirm', '=', True)])
-purchases = env['purchase.order'].search([('partner_id', 'in', partners), ('user_id', 'in', users)])
+purchases = env['purchase.order'].search([('partner_id', 'in', partners), ('user_id', 'in', users), ('state', 'in', ['draft', 'sent'])])
 purchases.confirm_rfq_action()
             </field>
             <field name="state">code</field>
