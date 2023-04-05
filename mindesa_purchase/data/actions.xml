@@ -9,7 +9,9 @@
             <field name="doall" eval="False"/>
             <field name="model_id" ref="purchase.model_purchase_order"/>
             <field name="code">
-purchases = env['purchase.order'].search([])
+partners = env['res.partner'].search([('partner_id.is_rfq_confirm', '=', True)])
+users = env['res.users'].search([('user_id.is_rfq_confirm', '=', True)])
+purchases = env['purchase.order'].search([('partner_id', 'in', partners), ('user_id', 'in', users), ('state', 'in', ['draft', 'sent'])])
 purchases.confirm_rfq_action()
             </field>
             <field name="state">code</field>

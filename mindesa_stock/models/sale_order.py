@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -8,10 +5,9 @@ from odoo.exceptions import UserError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.multi
     @api.depends('move_ids.state', 'move_ids.scrapped', 'move_ids.product_uom_qty', 'move_ids.product_uom')
     def _compute_qty_delivered(self):
-        super(SaleOrderLine, self)._compute_qty_delivered()
+        super()._compute_qty_delivered()
 
         for line in self:
             if line.qty_delivered_method == 'stock_move':
