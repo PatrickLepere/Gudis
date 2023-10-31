@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Mindesa: Stock Route",
     "summary": """Stock Route""",
@@ -8,8 +7,8 @@
     "author": "Odoo Inc",
     "website": "http://odoo.com",
     "category": "Custom Development",
-    "version": "0.1",
-    "license": "OEEL-1",
+    "version": "1.0",
+    "license": "OPL-1",
     "depends": ["sale_management", "stock_account", "sale_stock"],
     "data": [
     ]

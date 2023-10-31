@@ -3,7 +3,7 @@
     <data noupdate="0">
         <record model="ir.rule" id="purchase_user_vendor_bills">
             <field name="name">Restrict Vendor Bills access to Purchase Users</field>
-            <field name="model_id" ref="model_account_invoice"/>
+            <field name="model_id" ref="model_account_move"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_read" eval="0"/>
             <field name="perm_write" eval="1"/>
@@ -13,7 +13,7 @@
         </record>
         <record model="ir.rule" id="purchase_manager_vendor_bills">
             <field name="name">Allow Vendor Bills access to Purchase Managers</field>
-            <field name="model_id" ref="model_account_invoice"/>
+            <field name="model_id" ref="model_account_move"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_read" eval="0"/>
             <field name="perm_write" eval="1"/>
