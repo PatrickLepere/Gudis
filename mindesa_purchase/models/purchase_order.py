@@ -75,7 +75,7 @@ class PurchaseOrder(models.Model):
 
     @api.model
     def _prepare_picking(self):
-        res = super(PurchaseOrder, self)._prepare_picking()
+        res = super()._prepare_picking()
         if self.partner_id.is_rfq_confirm and self.company_id.partner_id.property_stock_customer and \
             self.partner_id != self.company_id.partner_id and \
             ((self.env.uid == SUPERUSER_ID) or (self.env.user.company_id.partner_id == self.partner_id)):

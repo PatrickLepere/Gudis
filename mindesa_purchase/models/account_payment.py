@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import models, _
 
 
 class account_payment(models.Model):
@@ -9,4 +9,4 @@ class account_payment(models.Model):
             "purchase.group_purchase_user,!purchase.group_purchase_manager"
         ):
             self = self.sudo()
-        return super(account_payment, self).action_validate_invoice_payment()
+        return super().action_validate_invoice_payment()
