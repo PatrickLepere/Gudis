@@ -2,8 +2,9 @@ from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from itertools import groupby
 
-from odoo import api, fields, models, _, SUPERUSER_ID
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from odoo.addons.stock.models.stock_rule import ProcurementException
 
 
 class StockRule(models.Model):
@@ -22,36 +23,45 @@ class StockRule(models.Model):
         to_unlink.unlink()
         return True
     
+    @api.model
     def _run_buy(self, procurements):
-
         procurements_by_po_domain = defaultdict(list)
+        errors = []
         for procurement, rule in procurements:
 
             # Get the schedule date in order to find a valid seller
             procurement_date_planned = fields.Datetime.from_string(procurement.values['date_planned'])
             schedule_date = (procurement_date_planned - relativedelta(days=procurement.company_id.po_lead))
 
-            supplier = procurement.product_id.with_context(force_company=procurement.company_id.id)._select_seller(
-                partner_id=procurement.values.get("supplier_id"),
-                quantity=procurement.product_qty,
-                date=schedule_date.date(),
-                uom_id=procurement.product_uom)
+            supplier = False
+            if procurement.values.get('supplierinfo_id'):
+                supplier = procurement.values['supplierinfo_id']
+            elif procurement.values.get('orderpoint_id') and procurement.values['orderpoint_id'].supplier_id:
+                supplier = procurement.values['orderpoint_id'].supplier_id
+            else:
+                supplier = procurement.product_id.with_company(procurement.company_id.id)._select_seller(
+                    partner_id=procurement.values.get("supplierinfo_name"),
+                    quantity=procurement.product_qty,
+                    date=max(procurement_date_planned.date(), fields.Date.today()),
+                    uom_id=procurement.product_uom)
 
             if not supplier:
                 msg = _('There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors.') % (procurement.product_id.display_name)
+                errors.append((procurement, msg))
                 raise UserError(msg)
 
             partner = supplier.name
             # we put `supplier_info` in values for extensibility purposes
             procurement.values['supplier'] = supplier
-            procurement.values['propagate_date'] = rule.propagate_date
-            procurement.values['propagate_date_minimum_delta'] = rule.propagate_date_minimum_delta
             procurement.values['propagate_cancel'] = rule.propagate_cancel
 
             domain = rule._make_po_get_domain(procurement.company_id, procurement.values, partner)
             procurements_by_po_domain[domain].append((procurement, rule))
 
-        res = super(StockRule, self)._run_buy(procurements)
+        if errors:
+            raise ProcurementException(errors)
+
+        super()._run_buy(procurements)
 
         for domain, procurements_rules in procurements_by_po_domain.items():
             # Get the procurements for the current domain.
@@ -82,7 +92,7 @@ class StockRule(models.Model):
             quantity=procurement_uom_po_qty,
             date=po.date_order and po.date_order.date(),
             uom_id=product_id.uom_po_id)
-        res = super(StockRule, self)._prepare_purchase_order_line(product_id, product_qty, product_uom, company_id, values, po)
+        res = super()._prepare_purchase_order_line(product_id, product_qty, product_uom, company_id, values, po)
         seller_product_uom = seller.product_uom
         seller_product_qty = product_uom._compute_quantity(product_qty, seller_product_uom)
         res.update({

@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import api, models, _
 
 
 class AccountMove(models.Model):
@@ -10,11 +10,11 @@ class AccountMove(models.Model):
             "purchase.group_purchase_user,!purchase.group_purchase_manager"
         ):
             self = self.sudo()
-        return super(AccountMove, self).create(vals)
+        return super().create(vals)
 
     def _post(self, soft=True):
         if self.user_has_groups(
             "purchase.group_purchase_user,!purchase.group_purchase_manager"
         ):
             self = self.sudo()
-        return super(AccountMove, self)._post(soft)
+        return super()._post(soft)
