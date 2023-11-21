@@ -48,7 +48,6 @@ class StockRule(models.Model):
             if not supplier:
                 msg = _('There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors.') % (procurement.product_id.display_name)
                 errors.append((procurement, msg))
-                raise UserError(msg)
 
             partner = supplier.name
             # we put `supplier_info` in values for extensibility purposes
@@ -87,7 +86,7 @@ class StockRule(models.Model):
     def _prepare_purchase_order_line(self, product_id, product_qty, product_uom, company_id, values, po):
         partner = values['supplier'].name
         procurement_uom_po_qty = product_uom._compute_quantity(product_qty, product_id.uom_po_id)
-        seller = product_id.with_context(force_company=company_id.id)._select_seller(
+        seller = product_id.with_company(company_id.id)._select_seller(
             partner_id=partner,
             quantity=procurement_uom_po_qty,
             date=po.date_order and po.date_order.date(),
