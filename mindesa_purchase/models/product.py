@@ -10,3 +10,19 @@ class ProductSupplierinfo(models.Model):
     product_uom_category_id = fields.Many2one('uom.category', related='product_tmpl_id.uom_po_id.category_id')
     # this is the new editable product uom
     product_uom = fields.Many2one('uom.uom', string='Unit of Measure (Vendor)', store=True, readonly=False, related=False, required=False)
+
+
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
+
+
+    def _select_seller(self, partner_id=False, quantity=0.0, date=None, uom_id=False, params=False):
+        sellers = self._get_filtered_sellers(partner_id=partner_id, quantity=quantity, date=date, uom_id=uom_id, params=params)
+        res = self.env['product.supplierinfo']
+        for seller in sellers:
+            if not res or res.name == seller.name:
+                res |= seller
+        # Start Patch
+        res = sellers.filtered(lambda s: s.name == res.company_id.partner_id) if res.company_id else res
+        # End Patch
+        return res and res.sorted('price')[:1]
